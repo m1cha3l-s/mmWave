@@ -2,17 +2,12 @@
 mmwave sensing project using seeedstudio 24GHz mmwave sensor and xiao esp32-s3
 
 ## Building (Variant 1)
-1. Solder the included headers onto the bottom of the Seeed Xiao ESP32-S3
-2. Place the mmwave sensor on those pins so that the sensing side is visible to you and solder it
-3. Place it inside the optional 3D Printed case and snap it together (Variant 1)
-4. Now you are finished!
-
-## Building (Variant 2)
-1. Solder the included headers onto the bottom of the Seeed Xiao ESP32-S3
-2. Solder the included headers from the mmwave sensor on the bottom (not sensing side) of the mmWave sensor
-3. Connect!
-4. Place it inside the optional 3D Printed case and snap it together (Variant 2)
-5. Now you are finished!
+1. Solder the headers included with the module together with the PCB and ESP32. (Make sure the headers are on the sides with the silkscreen text)
+2. Solder the headers from the ESP32 onto the module.
+3. Solder the LEDs onto the PCB.
+4. Connect the module to the headers on the PCB.
+5. Place it inside the optional 3D Printed case.
+6. Now you are finished!!!
 
 ## Flashing
 1. I have provided a test firmware even tho it is a playkit to explore
