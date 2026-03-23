@@ -1,6 +1,9 @@
 # mmWave playKit
 mmwave sensing project using seeedstudio 24GHz mmwave sensor and xiao esp32-s3
 
+### Firmware notice
+The included firmware is not fine tuned as of now because this project isn't built in real life as of yet. Also the included firmware is for controlling a different project of mine [Remote Occupancy Indicator](https://github.com/m1cha3l-s/remote-occupancy-indicator). The idea behind this project is to explore what's possible with this and try it in real world conditions so that you can have a better idea in which scenarios this sensor is usefull and in which it would lack functionality, with this idea comes the need of your own firmware to use it in your situation!
+
 ## Building
 1. Solder the headers included with the module together with the PCB and ESP32. (Make sure the headers are on the sides with the silkscreen text)
 2. Solder the headers from the ESP32 onto the module.
@@ -9,8 +12,12 @@ mmwave sensing project using seeedstudio 24GHz mmwave sensor and xiao esp32-s3
 5. Place it inside the optional 3D Printed case.
 6. Now you are finished!!!
 
-## Flashing
-1. I have provided a test firmware even tho it is a playkit to explore
-2. Open Arduino IDE and select the esp32-s3 as your board and the correct port.
-3. Flash!
-4. Now open the serial monitor and see if it is sensing!
+## Flashing (Sensor for [Remote Occupancy Indicator](https://github.com/m1cha3l-s/remote-occupancy-indicator))
+1. Flash the MAC-Finder in Arduino IDE (It can be found in the folder with the firmware).
+2. Look into the serial monitor and write down the MAC address. (We will need this to be able to communicate with the Indicator.
+3. For this demo to work we will need to reflash the Indicator with the MAC of the sensor.
+4. After doing that flash the sensor with the MAC of the indicator.
+5. Now you are finished!!! The sensor and indicator will connect automatically.
+
+## PCB/Schematic
+
