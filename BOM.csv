@@ -1,4 +1,5 @@
 Name,Purpose,Quantity,Total Cost (USD),Link,Distributor
+"PCB","pcb",1,4.36,"","jlcpcb"
 "botland shipping","shipping on botland ",1,3.60,"","botland"
 "Seeed Xiao ESP32-S3","the controller",1,10.00,"https://botland.cz/moduly-wifi-a-bt-esp32/22878-seeed-xiao-esp32-s3-wifi-bluetooth-seeedstudio-113991114.html","botland"
 "24Ghz mmwave seeedstudio sensor","the mmwave sensor ",1,6.70,"https://botland.cz/pohybove-senzory/24129-human-static-presence-mmwave-24ghz-senzor-pro-seeed-xiao-seeedstudio-101010001.html","botland"
