@@ -1,7 +1,7 @@
 # mmWave
 mmwave sensing project using seeedstudio 24GHz mmwave sensor and xiao esp32-s3
 
-## Building (Variant 1)
+## Building
 1. Solder the headers included with the module together with the PCB and ESP32. (Make sure the headers are on the sides with the silkscreen text)
 2. Solder the headers from the ESP32 onto the module.
 3. Solder the LEDs onto the PCB.
