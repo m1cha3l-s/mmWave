@@ -22,3 +22,13 @@ The included firmware is not fine tuned as of now because this project isn't bui
 ## PCB/Schematic
 ![PCB](https://github.com/m1cha3l-s/mmWave/blob/main/Pictures/pcb.png)
 ![Schematic 1](https://github.com/m1cha3l-s/mmWave/blob/main/Pictures/schematic1.png)
+
+### BOM
+| Part Name | Quantity | Price (USD) | Total (USD) | Link |
+|---|---|---|---|---|
+| XIAO ESP32-S3 | 1 | 10 | 10 | https://botland.cz/moduly-wifi-a-bt-esp32/22878-seeed-xiao-esp32-s3-wifi-bluetooth-seeedstudio-113991114.html |
+| 24Ghz mmwave seeedstudio sensor | 1 | 6.70 | 6.70 | https://botland.cz/pohybove-senzory/24129-human-static-presence-mmwave-24ghz-senzor-pro-seeed-xiao-seeedstudio-101010001.html |
+| botland shipping | 1 | 3.60 | 3.60 | |
+| Custom PCB (with shipping) | 1 | 4.36 | 4.36 | jlcpcb |
+| 3D Printed case | 1 | 0 | 0 | none - I have my own printer |
+| Total ||| 24.66 |
