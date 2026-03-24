@@ -20,4 +20,5 @@ The included firmware is not fine tuned as of now because this project isn't bui
 5. Now you are finished!!! The sensor and indicator will connect automatically.
 
 ## PCB/Schematic
-
+![PCB](https://github.com/m1cha3l-s/mmWave/blob/main/Pictures/pcb.png)
+![Schematic 1](https://github.com/m1cha3l-s/mmWave/blob/main/Pictures/schematic1.png)
