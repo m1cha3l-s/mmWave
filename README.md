@@ -4,6 +4,9 @@ mmwave sensing project using seeedstudio 24GHz mmwave sensor and xiao esp32-s3
 ### Firmware notice
 The included firmware is not fine tuned as of now because this project isn't built in real life as of yet. Also the included firmware is for controlling a different project of mine [Remote Occupancy Indicator](https://github.com/m1cha3l-s/remote-occupancy-indicator). The idea behind this project is to explore what's possible with this and try it in real world conditions so that you can have a better idea in which scenarios this sensor is usefull and in which it would lack functionality, with this idea comes the need of your own firmware to use it in your situation!
 
+### Case notice
+As of right now I don't have the parts on hand so I can't make the case. Without the sizes making a case at this point in making would be pointless. I have done my research tho and I know the headers and everything should be possible to fit. If I am mistaken then I take it as my mistake and will redo and order the stuff myself if needed.
+
 ## Building
 1. Solder the headers included with the module together with the PCB and ESP32. (Make sure the headers are on the sides with the silkscreen text)
 2. Solder the headers from the ESP32 onto the module.
@@ -11,6 +14,10 @@ The included firmware is not fine tuned as of now because this project isn't bui
 4. Connect the module to the headers on the PCB.
 5. Place it inside the optional 3D Printed case.
 6. Now you are finished!!!
+
+#### This is how it should be looking together
+![](https://github.com/m1cha3l-s/mmWave/blob/main/Pictures/together1.png)
+![](https://github.com/m1cha3l-s/mmWave/blob/main/Pictures/together2.png)
 
 ## Flashing (Sensor for [Remote Occupancy Indicator](https://github.com/m1cha3l-s/remote-occupancy-indicator))
 1. Flash the MAC-Finder in Arduino IDE (It can be found in the folder with the firmware).
