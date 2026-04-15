@@ -1,3 +1,5 @@
+
+
 #include <WiFi.h>
 #include <esp_now.h>
 #include <Adafruit_NeoPixel.h>
@@ -20,7 +22,7 @@ enum class TargetStatus : byte
 
 
 // Setup of sensor and COMs with it
-SoftwareSerial COMSerial(D2, D3);
+SoftwareSerial COMSerial(2, 3);
 
 #define ShowSerial Serial
 
@@ -29,7 +31,7 @@ Seeed_HSP24 xiao_config(COMSerial, ShowSerial);
 Seeed_HSP24::RadarStatus radarStatus;
 
 // Address of the indicator in format 11:22:33:44:55:66
-uint8_t broadcastAddress[] = {0x11, 0x22, 0x33, 0x44, 0x55, 0x66};
+uint8_t broadcastAddress[] = {0xA4, 0xCB, 0x8F, 0x1D, 0x52, 0xB8};
 #define CHANNEL 0
 
 float Indicator_current;
@@ -59,8 +61,8 @@ void OnDataRecv(const uint8_t *mac, const uint8_t *incomingData, int len) {
 
 void setup() {
   //Initialize serial communication
-  COMSerial.begin(9600);
   Serial.begin(115200);
+  COMSerial.begin(9600);
   //Initialize esp now
   WiFi.mode(WIFI_STA);
   esp_now_init();
