@@ -11,18 +11,8 @@ Adafruit_NeoPixel leds(2, 9, NEO_GRB + NEO_KHZ800);
 //Default variables for the sensor from mmwave_for_xiao
 #define BUFFER_SIZE 256     // Serial Buffer Size
 
-enum class TargetStatus : byte
-        {
-            NoTarget = 0x00,     // No target
-            MovingTarget = 0x01, // Moving target
-            StaticTarget = 0x02, // Static target
-            BothTargets = 0x03,  // It can be interpreted as motion, meaning that both the set motion and stationary thresholds are above the set value
-            ErrorFrame = 0x04    // Failed to get status
-        };
-
-
 // Setup of sensor and COMs with it
-SoftwareSerial COMSerial(2, 3);
+SoftwareSerial COMSerial(D2, D3);
 
 #define ShowSerial Serial
 
@@ -79,6 +69,7 @@ void setup() {
   leds.show();
   //sensor stuff
   xiao_config.disableEngineeringModel();
+  Serial.println("Starting!");
 }
 
 void loop() {
@@ -90,29 +81,47 @@ void loop() {
   do {
     radarStatus = xiao_config.getStatus();
     retryCount++;
-  } while (radarStatus.targetStatus == Seeed_HSP24::TargetStatus::ErrorFrame && retryCount < MAX_RETRIES);
+  } while (radarStatus.distance == -1 && retryCount < MAX_RETRIES);
+
+  Serial.println(String(targetStatusToString(radarStatus.targetStatus)));
 
   // Set color red if sensor is sensing anyone present
-  if (radarStatus.targetStatus == Seeed_HSP24::TargetStatus::BothTargets) {
+  if (String(targetStatusToString(radarStatus.targetStatus)) = "BothTargets") {
     Sensor_data.set = leds.Color(255, 0, 0);
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &Sensor_data, sizeof(Sensor_data));
-    delay(1200);
   }
-  else if (radarStatus.targetStatus == Seeed_HSP24::TargetStatus::StaticTarget) {
+  else if (String(targetStatusToString(radarStatus.targetStatus)) = "StaticTarget") {
     Sensor_data.set = leds.Color(255, 0, 0);
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &Sensor_data, sizeof(Sensor_data));
-    delay(1200);
   }
-  else if (radarStatus.targetStatus == Seeed_HSP24::TargetStatus::BothTargets) {
+  else if (String(targetStatusToString(radarStatus.targetStatus)) = "BothTargets") {
     Sensor_data.set = leds.Color(255, 0, 0);
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &Sensor_data, sizeof(Sensor_data));
-    delay(1200);
   }
   // Set color green if sensor is not sensing anyone present
-  else if (radarStatus.targetStatus == Seeed_HSP24::TargetStatus::NoTarget) {
+  else if (String(targetStatusToString(radarStatus.targetStatus)) = "NoTarget") {
     Sensor_data.set = leds.Color(0, 255, 0);
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &Sensor_data, sizeof(Sensor_data));
-    delay(1200);
   }
+  else if (String(targetStatusToString(radarStatus.targetStatus)) = "Unknown") {
+    Sensor_data.set = leds.Color(255, 255, 0);
+    esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &Sensor_data, sizeof(Sensor_data));
+  }
+Serial.println("Sent:" + String(targetStatusToString(radarStatus.targetStatus)));
+delay(1200);
+}
 
+const char* targetStatusToString(Seeed_HSP24::TargetStatus status) {
+  switch (status) {
+    case Seeed_HSP24::TargetStatus::NoTarget:
+      return "NoTarget";
+    case Seeed_HSP24::TargetStatus::MovingTarget:
+      return "MovingTarget";
+    case Seeed_HSP24::TargetStatus::StaticTarget:
+      return "StaticTarget";
+    case Seeed_HSP24::TargetStatus::BothTargets:
+      return "BothTargets";
+    default:
+      return "Unknown";
+  }
 }
