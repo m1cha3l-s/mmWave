@@ -1,5 +1,3 @@
-
-
 #include <WiFi.h>
 #include <esp_now.h>
 #include <Adafruit_NeoPixel.h>
@@ -25,8 +23,9 @@ uint8_t broadcastAddress[] = {0xA4, 0xCB, 0x8F, 0x1D, 0x52, 0xB8};
 #define CHANNEL 0
 
 float Indicator_current;
+float Sensor_set;
 
-typedef struct struck_message {
+typedef  struct struck_message {
   float set;
   float get;
 } struck_message;
@@ -43,7 +42,7 @@ void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
 void OnDataRecv(const uint8_t *mac, const uint8_t *incomingData, int len) {
   memcpy(&Indicator_data, incomingData, sizeof(Indicator_data));
   Indicator_current = Indicator_data.get;
-  Serial.println("Data recv: ");
+  Serial.println("Data recv:");
   Serial.println(Indicator_data.get);
   leds.fill(Indicator_data.get);
   leds.show();
@@ -76,39 +75,54 @@ void loop() {
   //Sensing stuff
   int retryCount = 0;
   const int MAX_RETRIES = 10;  // Maximum number of retries to prevent infinite loops
-
+  Sensor_set = Sensor_data.set;
   //Get radar status
   do {
     radarStatus = xiao_config.getStatus();
     retryCount++;
   } while (radarStatus.distance == -1 && retryCount < MAX_RETRIES);
-
-  Serial.println(String(targetStatusToString(radarStatus.targetStatus)));
-
   // Set color red if sensor is sensing anyone present
-  if (String(targetStatusToString(radarStatus.targetStatus)) = "BothTargets") {
+  if (String(targetStatusToString(radarStatus.targetStatus)) == "BothTargets") {
+    Serial.println("Detected: " + String(targetStatusToString(radarStatus.targetStatus)));
     Sensor_data.set = leds.Color(255, 0, 0);
+    Serial.println("Sent:");
+    Serial.println(Sensor_data.set);
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &Sensor_data, sizeof(Sensor_data));
   }
-  else if (String(targetStatusToString(radarStatus.targetStatus)) = "StaticTarget") {
+  else if (String(targetStatusToString(radarStatus.targetStatus)) == "StaticTarget") {
+    Serial.println("Detected: " + String(targetStatusToString(radarStatus.targetStatus)));
     Sensor_data.set = leds.Color(255, 0, 0);
+    Serial.println("Sent:");
+    Serial.println(Sensor_data.set);
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &Sensor_data, sizeof(Sensor_data));
   }
-  else if (String(targetStatusToString(radarStatus.targetStatus)) = "BothTargets") {
+  else if (String(targetStatusToString(radarStatus.targetStatus)) == "BothTargets") {
+    Serial.println("Detected: " + String(targetStatusToString(radarStatus.targetStatus)));
     Sensor_data.set = leds.Color(255, 0, 0);
+    Serial.println("Sent:");
+    Serial.println(Sensor_data.set);
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &Sensor_data, sizeof(Sensor_data));
   }
   // Set color green if sensor is not sensing anyone present
-  else if (String(targetStatusToString(radarStatus.targetStatus)) = "NoTarget") {
+  else if (String(targetStatusToString(radarStatus.targetStatus)) == "NoTarget") {
+    Serial.println("Detected: " + String(targetStatusToString(radarStatus.targetStatus)));
     Sensor_data.set = leds.Color(0, 255, 0);
+    Serial.println("Sent:");
+    Serial.println(Sensor_data.set);
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &Sensor_data, sizeof(Sensor_data));
   }
-  else if (String(targetStatusToString(radarStatus.targetStatus)) = "Unknown") {
+  else if (String(targetStatusToString(radarStatus.targetStatus)) == "Unknown") {
+    Serial.println("Detected: " + String(targetStatusToString(radarStatus.targetStatus)));
     Sensor_data.set = leds.Color(255, 255, 0);
+    Serial.println("Sent:");
+    Serial.println(Sensor_data.set);
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &Sensor_data, sizeof(Sensor_data));
   }
-Serial.println("Sent:" + String(targetStatusToString(radarStatus.targetStatus)));
+delay(250);
+Serial.println("Last recv:");
+Serial.println(Indicator_data.get);
 delay(1200);
+
 }
 
 const char* targetStatusToString(Seeed_HSP24::TargetStatus status) {
